@@ -1,0 +1,94 @@
+<app-header></app-header>
+<!-- <app-meetings></app-meetings>
+<app-calender></app-calender> -->
+<!-- <div *ngFor ="let u of responseData">
+  <p style="color: black;">{{u}}</p>
+</div> -->
+<div class="container">
+  <div class="row admin-dashboard">
+    <!-- USER LIST START -->
+    <div class="col-12 user-list"  *ngIf="showUserList" >
+        <div *ngFor="let user of userSortedList">
+          <div *ngIf="user.isAdmin==false">
+            <div (click)="displaySelectedUserMeetings(user, true)">
+              <div class="row at-user-box shadow-box-card">
+                <div class="col-sm-1 user-icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="col-sm-5 col-lg-2 at-ellipsis">
+                    <span>{{user.userName}}</span>
+                </div>
+                <div class="col-sm-5 col-lg-2 at-ellipsis">
+                  <span>{{user.fullName}}</span>
+                </div>
+                <div class="col-sm-5 col-lg-3 at-ellipsis at-email">
+                    <i class="fa fa-envelope"></i>
+                    <span>{{user.email}}</span>
+                </div>
+                <div class="col-sm-5 col-lg-3 at-ellipsis">
+                    <i class="fa fa-phone-square"></i>
+                    <span>{{user.mobile}}</span>
+                </div>
+                <div class="col-sm-2 col-lg-1 at-ellipsis">
+                    <button class="btn btn-primary" type="button">select</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+
+    <!-- CALENDAR VIEW  -->
+    <div class="col-12" *ngIf="showCalender">
+      <div class="row">
+        <div class="col-12 at-nav-buttons">
+          <div class="row">
+           <div class="col-xs-12 col-sm-6 at-back-btn">
+              <button class="btn btn-primary shadow-box-card"
+              (click)="showCalender=false; showUserList=true; onClickBack()">Back to user list</button>
+           </div>
+           <div class="col-xs-12 col-sm-6 at-create-btn">
+              <button class="btn btn-primary shadow-box-card" (click)="onCreateMeetingClicked()">Create new Meeting</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <app-calender [modalData]="modalData" [meetings]="meetings" (calendarEventEmitter)="onCalendarEvent($event)">
+          </app-calender>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #meetingTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      {{calendarAction == 'create'? 'Create a new meeting' : calendarAction == 'edit'? 'Update your meeting': ''}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="meetingModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-meetings [isEditMeeting]="isEditMeeting" [selectedMeeting]="selectedMeeting" [selectedDate]="selectedDate"
+      (onFormClose)="closeMeetingModal()">
+    </app-meetings>
+  </div>
+</ng-template>
+
+<ng-template #reminderTemplate let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Meeting Reminder</h5>
+    <button type="button" class="close" (click)="snoozeReminderModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h6 class="card-title">Your meeting <span><b>"{{meetingEvent.title}}"</b></span> will start soon.</h6>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="snoozeReminderModal()">Snooze</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="dismissReminderModal()">Dismiss</button>
+  </div>
+</ng-template>

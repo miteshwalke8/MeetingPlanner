@@ -1,0 +1,28 @@
+{
+  "name": "meeting",
+  "version": "1.0.0",
+  "description": "These are API for meeting planner project ",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "author": "Mitesh Walke",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.31",
+    "mongoose": "^5.10.13",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.4.15",
+    "npm": "^6.14.8",
+    "pino": "^6.7.0",
+    "request": "^2.88.2",
+    "shortid": "^2.2.16",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^3.0.2"
+  }
+}

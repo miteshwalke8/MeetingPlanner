@@ -1,0 +1,41 @@
+<app-header></app-header>
+<div class="container">
+  <div class="row user-dashboard">
+    <div class="col-12">
+      <app-calender [modalData]="modalData" [meetings]="meetings" (calendarEventEmitter)="onCalendarEvent($event)">
+      </app-calender>
+    </div>
+  </div>
+</div>
+
+<ng-template #meetingTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left"> Your meeting </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="meetingModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-meetings [isEditMeeting]="false" [isViewOnlyMeeting]="true" [selectedMeeting]="selectedMeetingForView"
+      (onFormClose)="closeModal()">
+    </app-meetings>
+  </div>
+</ng-template>
+
+<ng-template #reminderTemplate let-close="close">
+    <div class="modal-header">
+      <h5 class="modal-title">Meeting Reminder</h5>
+      <button type="button" class="close" (click)="snoozeReminderModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h6 class="card-title">Your meeting <span><b>"{{meetingEvent.title}}"</b></span> will start soon.</h6>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-success"
+        (click)="snoozeReminderModal()">Snooze</button>
+      <button type="button" class="btn btn-outline-secondary"
+        (click)="dismissReminderModal()">Dismiss</button>
+    </div>
+  </ng-template>
